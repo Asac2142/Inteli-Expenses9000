@@ -55,14 +55,10 @@ npm test
         
     En otro caso, si tenemos 999.1227..., la funcion nos retornaria 6, indicando los espacios que debemos recorrer incluyendo la primera posicion, dandonos como       resultado el valor de 999.12
     
-    
-       9 9 9 . 1 2 2 7 ---> gasto
-       1 2 3 4 5 6     ---> posicion
-       
-       
-       
-       
-       
+        
+        9 9 9 . 1 2 2 7 ---> gasto
+        1 2 3 4 5 6     ---> posicion
+                                                  
 
   - **computeBalance =>** se encarga de calcular el dinero total para igualar los gastos por viaje del grupo de personas, recibe el arreglo de gastos por viaje y
     el promedio de dicho viaje.
