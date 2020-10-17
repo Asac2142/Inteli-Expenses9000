@@ -27,7 +27,8 @@ npm test
 
 - INTELI-GASTOS 9000 recibe como entrada un archivo en donde se tiene detallado los gastos realizados dentro de un grupo de personas.
 - Puede existir varios gastos hechos por cada salida del grupo.
-  
+- El formato del archivo esta dado por un numero entero positivo que representa el numero de integrantes de personas, seguido por los gastos especificados por el signo "$" como se muestra en la imagen de abajo:
+
 ![alt text](https://i.ibb.co/qY5q907/Selection-034.png "Ejemplo de archivo para gastos")
 
 
