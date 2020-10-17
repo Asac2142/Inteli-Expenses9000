@@ -1,4 +1,4 @@
-import { inputFile } from './file.utils.js';
+const inputFile = require('./file.utils');
 
 const MAX_AMOUNT = 1000.00;
 const PRECISION = 2;
@@ -12,7 +12,7 @@ const setExpensesData = (dataFile) => {
     let total = 0;
     let average = 0;
 
-    dataFile.on('line', (line) => {                          
+    dataFile.on('line', (line) => {           
         if (line.startsWith('$')) {
             expensesPerTrip.push(parseFloat(line.split('$')[1]));
         } else {            
@@ -52,7 +52,7 @@ const getTotal = (expenses) => {
 };
 
 const getAverage = (expenses) => {
-    const average = expenses.reduce((expense, c) => expense + c, 0) / expenses.length;    
+    const average = expenses.reduce((total, expense) => total + expense, 0) / expenses.length;    
     return average.toString().substring(0, getNumberOfDecimals(average));
 };
 

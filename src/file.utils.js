@@ -1,10 +1,11 @@
-import { createReadStream } from 'fs';
-import { createInterface } from 'readline';
+const fs = require('fs');
+const readline = require('readline');
 
-export const inputFile = createInterface({
-    input: createReadStream('./assets/expenses.txt'),
+const inputFile = readline.createInterface({
+    input: fs.createReadStream('./assets/expenses.txt'),
     output: process.stdout,
     terminal: false
 });
 
-export default inputFile;
+//export default inputFile;
+module.exports = inputFile;

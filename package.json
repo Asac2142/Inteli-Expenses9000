@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "application with the pourpose of calculating equal amounts of expenses within a group of people",
   "main": "src/index.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"    
+    "test": "jasmine",
+    "start": "node src/index.js"
   },
   "keywords": [
     "Node.js"
   ],
   "author": "Andres Alban",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.6.2"
+  }
 }
