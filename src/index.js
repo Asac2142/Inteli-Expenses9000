@@ -3,21 +3,29 @@ const inputFile = require('./file.utils');
 const MAX_AMOUNT = 1000.00;
 const PRECISION = 2;
 
-const balancePerTrip = [];
 const file = inputFile;
+const balancePerTrip = [];
 let expensesPerTrip = [];
 let totalTrips = 0;
+let flag = false;
 
 const setExpensesData = (dataFile) => {
     let total = 0;
     let average = 0;
 
-    dataFile.on('line', (line) => {           
+    dataFile.on('line', (line) => {
+        if (line.startsWith('0')) {
+            dataFile.close();
+            dataFile.removeAllListeners();
+            flag = true;
+        }
+
         if (line.startsWith('$')) {
             expensesPerTrip.push(parseFloat(line.split('$')[1]));
         } else {            
-            setTotalTrips(line);
+            setTotalTrips();
             if (expensesPerTrip.length) {
+                expensesPerTrip = verifyExpenses(expensesPerTrip);
                 total = getTotal(expensesPerTrip);                
                 average = getAverage(expensesPerTrip, total);                
                 computeBalance(expensesPerTrip, average);                
@@ -32,23 +40,21 @@ const resetExpensesPerTrip = () => {
     expensesPerTrip = [];
 };
 
-const setTotalTrips = (streamData) => {
-    if (streamData !== '0') {
-        totalTrips++;
-    }
+const setTotalTrips = () => {
+    !flag ? totalTrips++ : totalTrips;
 };
 
-const getTotal = (expenses) => {    
-    let acummulativeExpense = 0;
-
+const verifyExpenses = (expenses) => {
     for (let i = 0; i < expenses.length; i++) {
         if (expenses[i] > MAX_AMOUNT) {
             expenses[i] = MAX_AMOUNT;
         }
-        acummulativeExpense += expenses[i];
     }
+    return expenses;
+};
 
-    return acummulativeExpense;
+const getTotal = (expenses) => {        
+    return expenses.reduce((acummulativeExpense, expense) =>  acummulativeExpense + expense , 0);
 };
 
 const getAverage = (expenses) => {
@@ -83,10 +89,17 @@ const getNumberOfDecimals = (number) => {
     }
 };
 
-const displayBalance = () => {    
+const displayBalance = () => {  
     if (balancePerTrip.length === totalTrips) {
         balancePerTrip.map(balance => console.log(`$${balance}`));
     }
 };
 
 setExpensesData(file);
+
+exports.balancePerTrip = balancePerTrip;
+exports.verifyExpenses = verifyExpenses;
+exports.getTotal = getTotal;
+exports.getAverage = getAverage;
+exports.computeBalance = computeBalance;
+exports.setExpensesData = setExpensesData;
