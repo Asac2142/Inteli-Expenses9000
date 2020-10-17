@@ -1,6 +1,6 @@
 # ![alt text](https://cdn4.iconfinder.com/data/icons/Primo_Icons/PNG/128x128/calculator.png "icon") INTELI-GASTOS 9000 
 
-INTELI-GASTOS 9000, es una aplicacion escrita en NodeJS con el enfoque de igualar los gastos realizados entre un grupo de personas.
+INTELI-GASTOS 9000, es una aplicacion escrita en NodeJS con el enfoque de igualar los gastos realizados dentro de un grupo de personas.
 
 ##  Requisitos
 
