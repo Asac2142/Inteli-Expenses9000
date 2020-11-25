@@ -1,69 +1,65 @@
-# ![alt text](https://cdn4.iconfinder.com/data/icons/Primo_Icons/PNG/128x128/calculator.png "icon") INTELI-GASTOS 9000 
+# ![alt text](https://cdn4.iconfinder.com/data/icons/Primo_Icons/PNG/128x128/calculator.png "icon") INTELI-EXPENSES 9000
 
-INTELI-GASTOS 9000, es una aplicacion escrita en NodeJS con el enfoque de igualar los gastos realizados dentro de un grupo de personas.
+INTELI-EXPENSES 9000, is NodeJS application with focus on calculating expenses distributed on a group of people.
 
-##  Requisitos
+##  Requeriments
 
-Asegurate de tener instalado en tu computador [NodeJS](https://nodejs.org/en/)
+Make sure you have installed on your computer [NodeJS](https://nodejs.org/en/)
 
-##  Instalacion
+##  Installation
 
 ```javascript
 npm install
 ```
-##  Uso
+##  Usage
 
-Para ejecutar la aplicacion, usa:
+To run the app, use:
 ```javascript
 npm start
 ```
 
-Para correr las pruebas, usa:
+For running the tests, use:
 ```javascript
 npm test
 ```
 
-## Descripcion
+## Description
 
-- INTELI-GASTOS 9000 recibe como entrada un archivo en donde se tiene detallado los gastos realizados dentro de un grupo de personas.
-- Puede existir varios gastos hechos por cada salida del grupo.
-- El formato del archivo esta dado por un numero entero positivo que representa el numero de integrantes de personas, seguido por los gastos especificados por el signo "$" como se muestra en la imagen de abajo:
+- INTELI-EXPENSES 9000 gets as an input a file where it has detailed all the expenses made in a group of people.
+- The idea is to calculate a fair amount of money for the total expense that every member of a group should pay. 
+- It is possible to have many expenses per trip.
+- The file has the following structure, it has a whole positive numbers that represents the number of persons in a group, followed by the expenses made for each member starting with a "$" sign.
 
 ![alt text](https://i.ibb.co/qY5q907/Selection-034.png "Ejemplo de archivo para gastos")
 
 
-- Cada miembro no tiene permitido gastar mas de $1000.00; si se da ese caso, INTELI-GASTOS 9000, automaticamente toma la cantidad maxima permitida por defecto en ese valor.
-- La lectura del archivo de gastos se lo termina cuando lee el caracter cero "0".
+- Each member of the group is not allowed to expense more than $1000.00; if so, INTELI-EXPENSES 9000, automatically takes the maximum amount by default instead of that value. 
+- Reading the file will end when it finds a "0" character.
 
-## Explicacion codigo fuente
+## Source code - explanation
 
-- El script principal es el index.js, dentro de este archivo se realiza la mayor parte de la logica de ese app.
-- El script principal index.js, hace uso de otro script que prepara la lectura del archivo "input".
-- Dentro del index.js, la funcion que ejecuta todo el calculo se llama "setExpensesData" que recibe el archivo de gastos como parametro.
-- Existen varias funciones puntuales que realizan diferentes tareas, como:
-  - **setTotalTrips =>** se encarga de sumar 1 llevando la cuenta de cuantos viajes se han realizado.
-  - **verifyExpenses =>** se encarga de validar que las cantidades no superen el monto de $1000.00.
-  - **getTotal =>** retorna el gasto total por viaje.
-  - **getAverage =>** retorna el promedio del gasto por viaje, en funcion del numero de integrantes.
-  - **setLength =>** es una funcion que recibe un gasto individual, y dependiendo de la parte entera de dicho gasto, nos indica la longitud que se debe cortar         para tener la precision de los 2 digitos en la parte decimal del gasto individual enviado. 
-  
-    Por ejemplo, se tiene 1.99, la funcion nos retornaria el valor de 4, ya que estamos indicando que desde el numero "1" de la cantidad, debemos recorrer 4           espacios incluido la primera posicion para tomar la presicion de 2 digitos de la cantidad evaluada.
+- The main script is index.js, inside of it, most of the logic is written here.
+- Index.js, makes use of another script that is in charge of preparing the file reading.
+- Inside of index.js, the function that starts the whole process is "setExpensesData( )" which receives a file as an input.
+- There are many functions that are in charge of a single concern:
+  - **setTotalTrips =>** it's in charge of adding 1 to a counter which counts how many trips has been made.
+  - **verifyExpenses =>** it validates that every expense written in the input file is less than or equal to $1000.00.
+  - **getTotal =>** returns the total expense per trip.
+  - **getAverage =>** returns the average expense per trip.
+  - **setLength =>** function that receives a single total expense that depending of the whole number of it, it tells the length that it should be cut in order to have a precision of 2 digits.
+   
+    For example, given 1.99, the function should return 4, because, from the whole number "1" we should count 4 spaces in order to have precision of 2 digits.
     
-        1 . 9 9  ---> gasto
-        1 2 3 4  ---> posicion
+        1 . 9 9  ---> expense
+        1 2 3 4  ---> position
         
         
-    En otro caso, si tenemos 999.1227..., la funcion nos retornaria 6, indicando los espacios que debemos recorrer incluyendo la primera posicion, dandonos como       resultado el valor de 999.12
-    
+    Another example, given 999.1227..., the function should return 6, indicating the spaces we should count in order to have an amount with precision of 2, giving us the value of 999.12
         
-        9 9 9 . 1 2 2 7 ---> gasto
-        1 2 3 4 5 6     ---> posicion
+        9 9 9 . 1 2 2 7 ---> expense
+        1 2 3 4 5 6     ---> position
                                                   
 
-  - **computeBalance =>** se encarga de calcular el dinero total para igualar los gastos por viaje del grupo de personas, recibe el arreglo de gastos por viaje y
-    el promedio de dicho viaje.
-  - **displayBalance =>** se encarga de desplegar el output del calculo por viaje.
-  - **resetExpensesPerTrip =>** se encarga de encerar el arreglo donde se tiene todos los gastos por viaje.
-
-## Realizado por
-Andres Alban Carvallo
+  - **computeBalance =>** is responsible for calculating the total money to equal the travel expenses of the group of people, receives the travel expense array and the average of that trip.
+  - **displayBalance =>** outputs the result.
+  - **resetExpensesPerTrip =>** resets an array which holds the amounts made in a trip.
